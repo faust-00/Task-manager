@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Details</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Task Detail</h1>
+
+    <div id="task-detail">
+        <p><strong>Task Title:</strong> <span id="task-title"></span></p>
+        <p><strong>Description:</strong> <span id="task-description"></span></p>
+        <p><strong>Status:</strong> <span id="task-status"></span></p>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            var taskId = 1;  // Bu yerda taskning id sini o'zgartiring
+            $.ajax({
+                url: '/api/task/' + taskId + '/',  // API URL (TaskDetail endpoint)
+                method: 'GET',
+                success: function(data) {
+                    // Ma'lumot muvaffaqiyatli olinganida
+                    $('#task-title').text(data.title);        // Task nomini ko'rsatish
+                    $('#task-description').text(data.description);  // Task tavsifini ko'rsatish
+                    $('#task-status').text(data.is_done ? 'Done' : 'Not Done');  // Task holatini ko'rsatish
+                },
+                error: function(xhr, status, error) {
+                    // Agar xato bo'lsa
+                    alert('Error: ' + error);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

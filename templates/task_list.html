@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        .container {
+            width: 80%; /* Kontainerning kengligini belgilash */
+            margin: 0 auto; /* Markazlashtirish */
+            padding: 20px; /* Ichki bo'shliq */
+            background-color: #f0fff0; /* Orqa fon rangi */
+            border: 1px solid #ccc; /* Chegaralar */
+        /* Container uchun flexbox */
+        .task-item {
+            display: flex; /* Flexbox yordamida joylashuvni boshqarish */
+            justify-content: space-between; /* Matnni chapga, ikonka esa o'ngga */
+            align-items: center; /* Vertikal sathda tenglashtirish */
+            padding: 10px;
+            border-bottom: 1px solid #ddd; /* Separator */
+        }
+
+        /* Ikonaning uslubi */
+        .task-icon {
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        /* Task bajarilgan bo'lsa, rang yashil */
+        .task-done {
+            color: green;
+        }
+
+        /* Task bajarilmagan bo'lsa, rang qizil */
+        .task-pending {
+            color: red;
+        }
+    </style>
+    <h1>Welcome to Task Manager</h1>
+    <p>Manage your tasks with ease.</p>
+    <br>
+   <ol>
+      {% for task in tasks %}
+       <li>
+           <div class="container">
+               <div class="task-item">
+                   <h2>{{task.title}}</h2>
+                   {% if task.is_done %} <i class="task-icon fas fa-check task-done" title="Bajarilgan"></i>
+                   {% else %} <i class="task-icon fas fa-times task-pending" title="Bajarilmagan"></i>
+                   {% endif %}
+               </div><br>
+               <i>{% if task.description %}{{ task.description }} {% else %} - {% endif %}</i><br>
+               <i>Deadline: </i> <h4>{{task.deadline}}</h4>
+
+           </div>
+       </li>
+
+       {% endfor %}
+   </ol>
+
+
+{% endblock %}
